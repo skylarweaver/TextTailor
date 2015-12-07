@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  FirstViewController.swift
 //  FinalProject
 //
 //  Created by Skylar Weaver on 12/2/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class MessagesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
