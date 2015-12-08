@@ -76,7 +76,7 @@
                                 <connections>
                                     <outlet property="groupLabel" destination="mO9-KF-jYn" id="nxY-0u-H7Z"/>
                                     <outlet property="groupSizeLabel" destination="Cfj-VN-ZSX" id="twl-cO-TPb"/>
-                                    <segue destination="yi1-Wv-hS8" kind="show" identifier="peopleViewSegue" id="QLw-yL-WJI"/>
+                                    <segue destination="uZi-Pc-i7Q" kind="show" identifier="peopleViewSegue" id="5BK-Lc-6ok"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -133,12 +133,54 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="GroupName" id="28e-gU-tKm">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="MJ7-dA-9xc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="MJ7-dA-9xc">
+                            <connections>
+                                <segue destination="D81-HY-vbD" kind="show" identifier="messengerViewSegue" id="8Fk-Mb-rVS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nB1-PR-ZvP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3036" y="358"/>
+            <point key="canvasLocation" x="2222" y="358"/>
+        </scene>
+        <!--Messenger View Controller-->
+        <scene sceneID="0bo-Xv-ETi">
+            <objects>
+                <viewController id="D81-HY-vbD" customClass="MessengerViewController" customModule="FinalProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ujs-4n-zik"/>
+                        <viewControllerLayoutGuide type="bottom" id="uIq-C7-coB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0oR-hM-qav">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2d-rF-T0D">
+                                <rect key="frame" x="249" y="274" width="102" height="30"/>
+                                <state key="normal" title="Send Message">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendTextMessageButtonTapped:" destination="D81-HY-vbD" eventType="touchUpInside" id="1Uq-uY-l01"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="gz3-wy-2Es">
+                                <rect key="frame" x="85" y="103" width="430" height="163"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageInput" destination="gz3-wy-2Es" id="WuW-6O-3lL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3m-1Q-cUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2911" y="358"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -157,7 +199,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-14" y="20"/>
         </scene>
         <!--Groups-->
         <scene sceneID="VVn-Qw-5RX">
@@ -196,24 +238,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScL-Ia-Yez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="-314"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="4ig-bq-zaE">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yi1-Wv-hS8" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9pE-Fg-1nn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="uZi-Pc-i7Q" kind="relationship" relationship="rootViewController" id="bE8-0G-nof"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yR8-2e-shQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2224" y="358"/>
         </scene>
     </scenes>
 </document>

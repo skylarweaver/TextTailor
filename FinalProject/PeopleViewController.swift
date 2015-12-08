@@ -12,7 +12,6 @@ import SwiftAddressBook
 
 class PeopleViewController: UITableViewController {
     
-//    let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
     var groups : [SwiftAddressBookGroup]? = []
     var people : [SwiftAddressBookPerson]? = []
     var group  : SwiftAddressBookGroup?
@@ -20,31 +19,10 @@ class PeopleViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = self.group?.name
         tableView.rowHeight = 44
+        tableView.allowsSelection = false;
         swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in if b {
-            let sources = swiftAddressBook?.allSources
-//            for source in sources! {
-//                //println("\(source.sourceName)") //TODO: This throws an exception
-//                let newGroups = swiftAddressBook!.allGroupsInSource(source)!
-//                self.groups = self.groups! + newGroups
-//            }
-//            if let members = self.group!.allMembers {
-//                self.members = members
-//            }
-//            else {
-//                return 0
-//            }
-//
-//            self.numbers = self.people?.map { (p) -> (Array<String?>?) in
-//                return p.phoneNumbers?.map { return $0.value }
-//            }
-//            self.names = self.people?.map { (p) -> (String?) in
-//                return p.compositeName
-//            }
-//            self.birthdates = self.people?.map { (p) -> (NSDate?) in
-//                return p.birthday
-//            }
-            
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })
@@ -54,25 +32,32 @@ class PeopleViewController: UITableViewController {
         println(self.group);
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "messengerViewSegue" {
+            let messengerView = segue.destinationViewController as! MessengerViewController
+//            let row = tableView.indexPathForSelectedRow()!.row
+            messengerView.group = self.group
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
     // MARK: - TableView
-    
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.group!.allMembers == nil ? 1 : self.group!.allMembers!.count
+        return (self.group == nil || self.group!.allMembers == nil) ? 1 : self.group!.allMembers!.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("personCell", forIndexPath: indexPath) as! PersonCellView
-        if (self.group!.allMembers != nil) && (self.group!.allMembers!.count != 0){
+        if (self.group != nil)  && (self.group!.allMembers != nil) && (self.group!.allMembers!.count != 0){
             // Configure the cell...
             cell.personName.text = self.group!.allMembers![indexPath.row].compositeName
 //          cell.personPhoneNumber.text = self.group!.allMembers![indexPath.row].phoneNumbers[0]

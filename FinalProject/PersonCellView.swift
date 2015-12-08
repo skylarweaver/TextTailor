@@ -11,4 +11,5 @@ import UIKit
 class PersonCellView: UITableViewCell {
     @IBOutlet weak var personName: UILabel!
     @IBOutlet weak var personPhoneNumber: UILabel!
+    
 }

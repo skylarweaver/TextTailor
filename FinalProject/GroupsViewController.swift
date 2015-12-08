@@ -46,6 +46,14 @@ class GroupsViewController: UITableViewController {
         }
     }
     
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "showDetail" {
+//        let showDetail: EventDetailViewController = segue.destinationViewController as! EventDetailViewController
+//        let row = tableView.indexPathForSelectedRow()!.row
+//        showDetail.event = appEvents![row]
+//        }
+//    }
+    
     // MARK: - TableView
 
     
