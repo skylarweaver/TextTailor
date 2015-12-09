@@ -5,7 +5,7 @@ use_frameworks!
 
 target 'FinalProject' do
 
-pod "SwiftAddressBook", "<= 0.4.5"
+pod "SwiftAddressBook"
 
 end
 

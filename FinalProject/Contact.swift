@@ -24,6 +24,6 @@ class Contact {
         self.firstName = firstName
         self.lastName = lastName
         self.phoneNumber = phoneNumber
-        self.imageData = UIImageJPEGRepresentation(UIImage(named: imageName), 0.7)
+        self.imageData = UIImageJPEGRepresentation(UIImage(named: imageName)!, 0.7)
     }
 }

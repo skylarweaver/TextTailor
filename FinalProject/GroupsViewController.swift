@@ -29,8 +29,8 @@ class GroupsViewController: UITableViewController {
                 })
             }
         }
-        print("Groups 1: ");
-        print(self.groups);
+//        print("Groups 1: ", terminator: "");
+//        print(self.groups, terminator: "");
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,18 +41,11 @@ class GroupsViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "peopleViewSegue" {
         let peopleView = segue.destinationViewController as! PeopleViewController
-        let row = tableView.indexPathForSelectedRow()!.row
+        let row = tableView.indexPathForSelectedRow!.row
         peopleView.group = self.groups![row]
         }
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "showDetail" {
-//        let showDetail: EventDetailViewController = segue.destinationViewController as! EventDetailViewController
-//        let row = tableView.indexPathForSelectedRow()!.row
-//        showDetail.event = appEvents![row]
-//        }
-//    }
+
     
     // MARK: - TableView
 
@@ -77,66 +70,66 @@ class GroupsViewController: UITableViewController {
         else {
             cell.groupLabel.text = "No groups created";
         }
-        print("Groups");
-        print(groups);
+//        print("Groups", terminator: "");
+//        print(groups, terminator: "");
         return cell
     }
     
-    func promptForAddressBookRequestAccess(petButton: UIButton) {
-        var err: Unmanaged<CFError>? = nil
-        
-        ABAddressBookRequestAccessWithCompletion(addressBookRef) {
-            (granted: Bool, error: CFError!) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if !granted {
-                    self.displayCantAddContactAlert()
-                } else {
-                    println("Just authorized")
-                }
-            }
-        }
-    }
+//    func promptForAddressBookRequestAccess(petButton: UIButton) {
+//        var err: Unmanaged<CFError>? = nil
+//        
+//        ABAddressBookRequestAccessWithCompletion(addressBookRef) {
+//            (granted: Bool, error: CFError!) in
+//            dispatch_async(dispatch_get_main_queue()) {
+//                if !granted {
+//                    self.displayCantAddContactAlert()
+//                } else {
+//                    print("Just authorized")
+//                }
+//            }
+//        }
+//    }
 
     func openSettings() {
         let url = NSURL(string: UIApplicationOpenSettingsURLString)
         UIApplication.sharedApplication().openURL(url!)
     }
     
-    func displayCantAddContactAlert() {
-        let cantAddContactAlert = UIAlertController(title: "Cannot Add Contact",
-            message: "You must give the app permission to add the contact first.",
-            preferredStyle: .Alert)
-        cantAddContactAlert.addAction(UIAlertAction(title: "Change Settings",
-            style: .Default,
-            handler: { action in
-                self.openSettings()
-        }))
-        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        presentViewController(cantAddContactAlert, animated: true, completion: nil)
-    }
+//    func displayCantAddContactAlert() {
+//        let cantAddContactAlert = UIAlertController(title: "Cannot Add Contact",
+//            message: "You must give the app permission to add the contact first.",
+//            preferredStyle: .Alert)
+//        cantAddContactAlert.addAction(UIAlertAction(title: "Change Settings",
+//            style: .Default,
+//            handler: { action in
+//                self.openSettings()
+//        }))
+//        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+//        presentViewController(cantAddContactAlert, animated: true, completion: nil)
+//    }
     
     
     
     // MARK: - Actions
     
-    @IBAction func tappedAddPetToContacts(petButton: UIButton) {
-        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
-        
-        switch authorizationStatus {
-        case .Denied, .Restricted:
-            //1
-            println("Denied")
-            displayCantAddContactAlert()
-        case .Authorized:
-            //2
-            println("Authorized")
-//            addPetToContacts(petButton)
-        case .NotDetermined:
-            //3
-            println("Not Determined")
-            promptForAddressBookRequestAccess(petButton)
-        }
-    }
+//    @IBAction func tappedAddPetToContacts(petButton: UIButton) {
+//        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
+//        
+//        switch authorizationStatus {
+//        case .Denied, .Restricted:
+//            //1
+//            print("Denied")
+//            displayCantAddContactAlert()
+//        case .Authorized:
+//            //2
+//            print("Authorized")
+////            addPetToContacts(petButton)
+//        case .NotDetermined:
+//            //3
+//            print("Not Determined")
+//            promptForAddressBookRequestAccess(petButton)
+//        }
+//    }
     
 //    swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
 //    if success {

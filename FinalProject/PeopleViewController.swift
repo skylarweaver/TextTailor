@@ -28,8 +28,6 @@ class PeopleViewController: UITableViewController {
             })
             }
         }
-        println("Group 1: ");
-        println(self.group);
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -59,12 +57,13 @@ class PeopleViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("personCell", forIndexPath: indexPath) as! PersonCellView
         if (self.group != nil)  && (self.group!.allMembers != nil) && (self.group!.allMembers!.count != 0){
             // Configure the cell...
-            cell.personName.text = self.group!.allMembers![indexPath.row].compositeName
-//          cell.personPhoneNumber.text = self.group!.allMembers![indexPath.row].phoneNumbers[0]
-            cell.personPhoneNumber.text = "EMPTYYY"
-            println("Phone Numbers:")
-            println(self.group!.allMembers![indexPath.row].phoneNumbers)
-            println("END");
+            let firstName = self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].firstName != nil ?  self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].firstName : ""
+            let lastName = self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].lastName != nil ? self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].lastName: ""
+            let fullName = firstName! + " " + lastName!
+            cell.personName.text = fullName
+            let phoneNumber = self.group!.allMembers![indexPath.row].phoneNumbers!.filter { $0.id == 0 }[0].value
+            cell.personPhoneNumber.text = phoneNumber //!= nil ? phoneNumber : "No Mobile Phone Number"
+
         }
         else {
             cell.personName.text = "Group is empty";
@@ -73,19 +72,23 @@ class PeopleViewController: UITableViewController {
         return cell
     }
     
-//    func promptForAddressBookRequestAccess(petButton: UIButton) {
-//        var err: Unmanaged<CFError>? = nil
+    
+    
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //        
-//        ABAddressBookRequestAccessWithCompletion(addressBookRef) {
-//            (granted: Bool, error: CFError!) in
-//            dispatch_async(dispatch_get_main_queue()) {
-//                if !granted {
-//                    self.displayCantAddContactAlert()
-//                } else {
-//                    println("Just authorized")
-//                }
-//            }
+//        let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupCellView
+//        if groups != nil{
+//            // Configure the cell...
+//            cell.groupLabel.text = groups![indexPath.row].name
+//            cell.groupSizeLabel.text = String(100);
+//            //            cell.groupLabel.text = String(groups?.count);
 //        }
+//        else {
+//            cell.groupLabel.text = "No groups created";
+//        }
+//        print("Groups", terminator: "");
+//        print(groups, terminator: "");
+//        return cell
 //    }
     
     func openSettings() {
@@ -93,49 +96,12 @@ class PeopleViewController: UITableViewController {
         UIApplication.sharedApplication().openURL(url!)
     }
     
-//    func displayCantAddContactAlert() {
-//        let cantAddContactAlert = UIAlertController(title: "Cannot Add Contact",
-//            message: "You must give the app permission to add the contact first.",
-//            preferredStyle: .Alert)
-//        cantAddContactAlert.addAction(UIAlertAction(title: "Change Settings",
-//            style: .Default,
-//            handler: { action in
-//                self.openSettings()
-//        }))
-//        cantAddContactAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-//        presentViewController(cantAddContactAlert, animated: true, completion: nil)
-//    }
+
     
     
     
     // MARK: - Actions
     
-//    @IBAction func tappedAddPetToContacts(petButton: UIButton) {
-//        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
-//        
-//        switch authorizationStatus {
-//        case .Denied, .Restricted:
-//            //1
-//            println("Denied")
-//            displayCantAddContactAlert()
-//        case .Authorized:
-//            //2
-//            println("Authorized")
-//            //            addPetToContacts(petButton)
-//        case .NotDetermined:
-//            //3
-//            println("Not Determined")
-//            promptForAddressBookRequestAccess(petButton)
-//        }
-//    }
-    
-    //    swiftAddressBook?.requestAccessWithCompletion({ (success, error) -> Void in
-    //    if success {
-    //    //do something with swiftAddressBook
-    //    }
-    //    else {
-    //    //no success. Optionally evaluate error
-    //    }
-    //    })
+
 }
 
