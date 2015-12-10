@@ -9,18 +9,21 @@
 import UIKit
 import SwiftAddressBook
 
-class MessageDetailViewController: UIViewController{//, UITableViewDelegate, UITableViewDataSource{
+class MessageDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 //    var messagesDict : [[String : [Int]]] = []
     var recipients : [SwiftAddressBookPerson?] = []
     var message : String = ""
     
     @IBOutlet var messageField: UITextView!
-//    @IBOutlet var recipientTable: UITableView!
+    @IBOutlet var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.tableView.delegate = self
+//        self.tableView.dataSource = self
 //        tableView.rowHeight = 44
+//        self.tableView.registerClass(RecipientCellView.self, forCellReuseIdentifier: "recipientCell")
         messageField.text = self.message
         print("DETAIL PAGE");
         print(self.message);
@@ -54,30 +57,46 @@ class MessageDetailViewController: UIViewController{//, UITableViewDelegate, UIT
     // MARK: - TableView
     
     
-//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 0
-//    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print("innumberrowssection")
+        return self.recipients.count == 0 ? 1 : self.recipients.count
+    }
 //
 //    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return self.messagesDict.count == 0 ? 1 : messagesDict.count
 //    }
 //    
     
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        return
-//    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        return
+    }
 
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("recipientCell", forIndexPath: indexPath) as! RecipientCellView
-//        if self.recipients.count > 0{
-//            let firstName = self.recipients[indexPath.row]!.firstName != nil ?  self.recipients[indexPath.row]!.firstName : ""
-//            let lastName = self.recipients[indexPath.row]!.lastName != nil ? self.recipients[indexPath.row]!.lastName: ""
-//            let fullName = firstName! + " " + lastName!
-////            cell.recipient = fullName
-////            cell.message = self.message
-//        }
-//        return cell
-//    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("recipientCell", forIndexPath: indexPath) as! RecipientCellView
+        print(self.recipients.count);
+        if self.recipients.count > 0{
+            let firstName = self.recipients[indexPath.row]!.firstName != nil ?  self.recipients[indexPath.row]!.firstName : ""
+            let lastName = self.recipients[indexPath.row]!.lastName != nil ? self.recipients[indexPath.row]!.lastName: ""
+            let fullName = firstName! + " " + lastName!
+            cell.recipient.text = fullName
+            if self.recipients[indexPath.row]!.phoneNumbers != nil{
+                let phoneNumber = self.recipients[indexPath.row]!.phoneNumbers!.filter { $0.id == 0 }[0].value
+                cell.phoneNumber.text = phoneNumber //!= nil ? phoneNumber : "No Mobile Phone Number"
+            }
+            else{
+                cell.phoneNumber.text = "No Mobile Number"
+            }
+//            cell.phoneNumber.text = "7174606388" //self.message
+        }
+        else{
+//            print("FAILED REC > 0")
+//            print(cell);
+//            print(cell.recipient.text)
+            cell.recipient.text = "NO NAME"
+            cell.phoneNumber.text = "NO PHONE"
+        }
+        return cell
+    }
 //    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //        
 //        let cell = tableView.dequeueReusableCellWithIdentifier("messageCell", forIndexPath: indexPath) as! MessageCellView

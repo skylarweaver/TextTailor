@@ -78,24 +78,18 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Recipients" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcZ-Us-dEk">
                                 <rect key="frame" x="240" y="80" width="120" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfO-zA-7Vi">
-                                <rect key="frame" x="247" y="265" width="106" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" keyboardDismissMode="interactive" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hnP-yB-9kJ">
-                                <rect key="frame" x="49" y="294" width="502" height="163"/>
+                                <rect key="frame" x="49" y="300" width="502" height="163"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t8j-DQ-zZG">
-                                <rect key="frame" x="220" y="489" width="161" height="30"/>
+                                <rect key="frame" x="220" y="502" width="161" height="30"/>
                                 <state key="normal" title="Edit and Send Message"/>
                                 <connections>
                                     <segue destination="SAK-3R-2R4" kind="show" id="814-DQ-QNJ"/>
@@ -105,7 +99,7 @@
                                 <rect key="frame" x="49" y="109" width="502" height="139"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="AeM-8o-7OU">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipientCell" id="AeM-8o-7OU" customClass="RecipientCellView" customModule="FinalProject" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="502" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AeM-8o-7OU" id="ege-uM-lmJ">
@@ -114,7 +108,7 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="personName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjP-8v-8oQ">
                                                     <rect key="frame" x="16" y="11" width="266" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -132,30 +126,44 @@
                                                 <constraint firstItem="rSG-Iu-Wxh" firstAttribute="top" secondItem="ege-uM-lmJ" secondAttribute="topMargin" constant="4" id="ytR-8x-xRw"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="phoneNumber" destination="rSG-Iu-Wxh" id="bV0-1I-jAR"/>
+                                            <outlet property="recipient" destination="mjP-8v-8oQ" id="5Gc-Df-J7e"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="W4M-aq-rGJ" id="WON-01-uby"/>
+                                    <outlet property="delegate" destination="W4M-aq-rGJ" id="qAW-lm-VhW"/>
+                                </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfO-zA-7Vi">
+                                <rect key="frame" x="247" y="268" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="JN2-Ek-ukc" secondAttribute="trailing" constant="15" id="0fq-8y-NRV"/>
                             <constraint firstItem="sfO-zA-7Vi" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="0im-Ca-dcq"/>
+                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="top" secondItem="FuT-Db-hLP" secondAttribute="bottom" constant="45" id="4eT-Gx-rfr"/>
                             <constraint firstItem="lcZ-Us-dEk" firstAttribute="top" secondItem="FuT-Db-hLP" secondAttribute="bottom" constant="16" id="BNb-id-zol"/>
-                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="top" secondItem="lcZ-Us-dEk" secondAttribute="bottom" constant="10" id="Gki-3D-twQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hnP-yB-9kJ" secondAttribute="trailing" constant="29" id="SKk-Si-o9O"/>
-                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="leading" secondItem="DJh-dQ-x0K" secondAttribute="leadingMargin" constant="29" id="Sqf-El-RAW"/>
-                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="U2X-J9-Pbu"/>
                             <constraint firstItem="t8j-DQ-zZG" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="a8m-xP-OTy"/>
                             <constraint firstItem="hnP-yB-9kJ" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="bnH-N6-hzT"/>
-                            <constraint firstItem="sfO-zA-7Vi" firstAttribute="top" secondItem="JN2-Ek-ukc" secondAttribute="bottom" constant="15" id="cuC-pB-A8U"/>
                             <constraint firstItem="t8j-DQ-zZG" firstAttribute="top" secondItem="hnP-yB-9kJ" secondAttribute="bottom" constant="8" id="cvl-Rn-gT4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JN2-Ek-ukc" secondAttribute="trailing" constant="29" id="dkn-q6-6e6"/>
                             <constraint firstItem="lcZ-Us-dEk" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="e4Z-fe-Snl"/>
                             <constraint firstItem="hnP-yB-9kJ" firstAttribute="top" secondItem="sfO-zA-7Vi" secondAttribute="bottom" constant="8" id="gL1-CC-gkX"/>
+                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="leading" secondItem="DJh-dQ-x0K" secondAttribute="leadingMargin" constant="15" id="gfU-ah-ezN"/>
+                            <constraint firstItem="JN2-Ek-ukc" firstAttribute="centerX" secondItem="DJh-dQ-x0K" secondAttribute="centerX" id="s6N-Wb-piK"/>
                             <constraint firstItem="hnP-yB-9kJ" firstAttribute="leading" secondItem="DJh-dQ-x0K" secondAttribute="leadingMargin" constant="29" id="xzr-MC-hpf"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="messageField" destination="hnP-yB-9kJ" id="u3D-wh-NZy"/>
+                        <outlet property="tableView" destination="JN2-Ek-ukc" id="6yj-Zz-lCr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42U-3s-My5" userLabel="First Responder" sceneMemberID="firstResponder"/>
