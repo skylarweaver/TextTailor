@@ -21,18 +21,13 @@ class GroupsViewController: UITableViewController {
                 for source in sources! {
                     let newGroups = swiftAddressBook!.allGroupsInSource(source)!
                     self.groups = self.groups! + newGroups
-                    print("ACCESS ALLOWED")
-                    print(self.groups)
-                    print(newGroups)
+
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
             }
         }
-        print("GROUPS")
-        print(self.groups!.count);
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,8 +45,6 @@ class GroupsViewController: UITableViewController {
 
     
     // MARK: - TableView
-
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
@@ -65,8 +58,6 @@ class GroupsViewController: UITableViewController {
         if self.groups != nil{
             if self.groups!.count > 0{
                 // Configure the cell...
-                print("BEFORE ERROR")
-                print(self.groups)
                             cell.groupLabel.text = groups![indexPath.row].name
                 if self.groups![indexPath.row].allMembers != nil{
                     cell.groupSizeLabel.text = String(self.groups![indexPath.row].allMembers!.count);
@@ -82,18 +73,5 @@ class GroupsViewController: UITableViewController {
         }
         return cell
     }
-    
-
-//    func openSettings() {
-//        let url = NSURL(string: UIApplicationOpenSettingsURLString)
-//        UIApplication.sharedApplication().openURL(url!)
-//    }
-    
-
-    
-    
-    
-    // MARK: - Actions
-    
 }
 

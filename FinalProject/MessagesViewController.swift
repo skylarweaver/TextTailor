@@ -13,6 +13,10 @@ class MessagesViewController: UITableViewController {
     var messagesDict : [[String : [Int]]] = []
     
     override func viewDidLoad() {
+        //Use to delete all current messages
+//        for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
+//            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+//        }
         super.viewDidLoad()
 //        tableView.rowHeight = 66
         swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in if b {
@@ -24,7 +28,12 @@ class MessagesViewController: UITableViewController {
             })
         }
         }
+        print("HEREE")
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         let messagesData = NSUserDefaults.standardUserDefaults()
+        messagesData.synchronize()
         if (messagesData.objectForKey("SavedMessages"))  != nil{
             self.messagesDict = messagesData.objectForKey("SavedMessages") as! [[String:[Int]]]
         }
@@ -32,7 +41,7 @@ class MessagesViewController: UITableViewController {
             self.messagesDict = []
         }
         print(self.messagesDict)
-        print("HEREE")
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -97,7 +106,10 @@ class MessagesViewController: UITableViewController {
         print("RECIPIENTS")
         print(recipients)
         for recipient in recipients{
-            recipientString += (swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.firstName!)! + " "
+            let firstName = swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.firstName != nil ?  swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.firstName : ""
+            let lastName = swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.lastName != nil ? swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.lastName: ""
+            let fullName = firstName! + " " + lastName!
+            recipientString = fullName + ", " + recipientString
         }
         return recipientString
     }

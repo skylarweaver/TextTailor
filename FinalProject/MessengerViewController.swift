@@ -17,6 +17,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
     var persons : [SwiftAddressBookPerson] = []
     var tempGroup : [SwiftAddressBookPerson]?
     var messagesDictArray: [[String:[Int]]] = []
+    var recievedMessageText = ""
 
     
     @IBOutlet var messageInput: UITextView!
@@ -35,6 +36,9 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         }
         else{
             self.title = "Message " + self.group!.name!
+        }
+        if self.recievedMessageText != ""{
+            self.messageInput.text = recievedMessageText
         }
     }
     
@@ -91,7 +95,11 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
             saveData(message)
             let groupsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("groupsViewController") as? GroupsViewController
             self.navigationController?.showViewController(groupsViewController!, sender: true)
+            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MessagesViewController") as! MessagesViewController
+            self.navigationController?.pushViewController(secondViewController, animated: true)
             tabBarController?.selectedIndex = 0
+//            MessagesViewController.reload
+
             return
         }
     }
@@ -142,14 +150,11 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         }
         var recipientRecordIDs :[Int] = []
         message.recipients.map({recipientRecordIDs += [$0.recordID]})
-        self.messagesDictArray += [[message.messageText : recipientRecordIDs]]
+        self.messagesDictArray = [[message.messageText : recipientRecordIDs]] + self.messagesDictArray
         print("In MessengerViewController")
         print(self.messagesDictArray)
         defaults.setObject(self.messagesDictArray, forKey: "SavedMessages")
-//        let defaultsnew = NSUserDefaults.standardUserDefaults()
-//        let temptest = defaults.objectForKey("SavedMessages") as! [[String:[Int]]]
-//        print(temptest)
-//        print("HEREE")
+        defaults.synchronize()
     }
     
     
