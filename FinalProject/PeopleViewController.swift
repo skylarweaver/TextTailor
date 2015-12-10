@@ -33,7 +33,6 @@ class PeopleViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "messengerViewSegue" {
             let messengerView = segue.destinationViewController as! MessengerViewController
-//            let row = tableView.indexPathForSelectedRow()!.row
             messengerView.group = self.group
         }
     }
@@ -61,9 +60,13 @@ class PeopleViewController: UITableViewController {
             let lastName = self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].lastName != nil ? self.group!.allMembersWithSortOrdering(SwiftAddressBookOrdering.firstName)![indexPath.row].lastName: ""
             let fullName = firstName! + " " + lastName!
             cell.personName.text = fullName
-            let phoneNumber = self.group!.allMembers![indexPath.row].phoneNumbers!.filter { $0.id == 0 }[0].value
-            cell.personPhoneNumber.text = phoneNumber //!= nil ? phoneNumber : "No Mobile Phone Number"
-
+            if self.group!.allMembers![indexPath.row].phoneNumbers != nil{
+                let phoneNumber = self.group!.allMembers![indexPath.row].phoneNumbers!.filter { $0.id == 0 }[0].value
+                cell.personPhoneNumber.text = phoneNumber //!= nil ? phoneNumber : "No Mobile Phone Number"
+            }
+            else{
+                cell.personPhoneNumber.text = "No Mobile Number"
+            }
         }
         else {
             cell.personName.text = "Group is empty";
@@ -72,24 +75,6 @@ class PeopleViewController: UITableViewController {
         return cell
     }
     
-    
-    
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        
-//        let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupCellView
-//        if groups != nil{
-//            // Configure the cell...
-//            cell.groupLabel.text = groups![indexPath.row].name
-//            cell.groupSizeLabel.text = String(100);
-//            //            cell.groupLabel.text = String(groups?.count);
-//        }
-//        else {
-//            cell.groupLabel.text = "No groups created";
-//        }
-//        print("Groups", terminator: "");
-//        print(groups, terminator: "");
-//        return cell
-//    }
     
     func openSettings() {
         let url = NSURL(string: UIApplicationOpenSettingsURLString)

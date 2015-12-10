@@ -11,6 +11,4 @@ import UIKit
 class GroupCellView: UITableViewCell {
     @IBOutlet weak var groupLabel: UILabel!
     @IBOutlet weak var groupSizeLabel: UILabel!
-//    @IBOutlet weak var birthdateLabel: UILabel!
-//    @IBOutlet weak var phoneNumberLabel: UILabel!
 }
