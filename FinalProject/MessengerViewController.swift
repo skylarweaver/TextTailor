@@ -107,7 +107,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
     func messageComposeViewController(controller: MFMessageComposeViewController, didFinishWithResult result: MessageComposeResult) {
         controller.dismissViewControllerAnimated(true, completion: nil)
         if result.rawValue == MessageComposeResultCancelled.rawValue || result.rawValue == MessageComposeResultFailed.rawValue{
-            print("FAILED")
             self.persons = []
             return
         }else{
@@ -117,9 +116,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
 
     
     func formatText(textInput: String, person: SwiftAddressBookPerson) -> String{
-        print("IN FUNCTION")
-        print(textInput)
-        print(person)
         let result1 = textInput.stringByReplacingOccurrencesOfString("%nickname", withString: (person.nickname != nil ? person.nickname!.capitalizedString : (person.firstName != nil ? person.lastName!.capitalizedString : "")));
         let result2 = result1.stringByReplacingOccurrencesOfString("%lastname", withString: (person.lastName  != nil ? person.lastName!.capitalizedString : ""));
         let result3 = result2.stringByReplacingOccurrencesOfString("%firstname", withString: (person.firstName != nil ? person.firstName!.capitalizedString : ""));
@@ -128,7 +124,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         let result6 = result5.stringByReplacingOccurrencesOfString(".fn", withString: (person.firstName != nil ? person.firstName!.capitalizedString : ""));
         let result7 = result6.stringByReplacingOccurrencesOfString(".ln", withString: (person.firstName != nil ? person.lastName!.capitalizedString : ""));
         let finalResult = result7.stringByReplacingOccurrencesOfString("%fullname", withString: (person.compositeName != nil ? person.compositeName!.capitalizedString : ""));
-        print(finalResult)
         return finalResult
 //        return "STRING MESSAGE"
     }
@@ -151,8 +146,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         var recipientRecordIDs :[Int] = []
         message.recipients.map({recipientRecordIDs += [$0.recordID]})
         self.messagesDictArray = [[message.messageText : recipientRecordIDs]] + self.messagesDictArray
-        print("In MessengerViewController")
-        print(self.messagesDictArray)
         defaults.setObject(self.messagesDictArray, forKey: "SavedMessages")
         defaults.synchronize()
     }

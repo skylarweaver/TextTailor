@@ -9,11 +9,13 @@
 import UIKit
 import SwiftAddressBook
 
-class TempGroupViewController: UITableViewController {
+class TempGroupViewController: UITableViewController, UISearchDisplayDelegate {
     
     var people : [SwiftAddressBookPerson]? = []
     var tempGroup :[SwiftAddressBookPerson] = []
     let alphabetSections = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    var filteredContacts : [SwiftAddressBookPerson] = []
+
     
     override
     func viewDidLoad() {
@@ -59,7 +61,6 @@ class TempGroupViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.people == nil ? 1 : self.people!.count
         return (self.people?.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[section])}).count)!
     }
     
@@ -81,7 +82,6 @@ class TempGroupViewController: UITableViewController {
             let lastName = sectionPeople[indexPath.row].lastName != nil ? sectionPeople[indexPath.row].lastName : ""
             let fullName = firstName! + " " + lastName!
             cell.personName.text = fullName
-//            cell.personPhoneNumber.text = self.people![indexPath.row].phoneNumbers!.filter { $0.id == 0 }[0].value
         }
         else {
             cell.personName.text = "You have no friends :(";
@@ -90,11 +90,9 @@ class TempGroupViewController: UITableViewController {
         cell.selected = false
         if tempGroup.contains(sectionPeople[indexPath.row]){
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            print("IN TRUE HERE")
         }
         else{
             cell.accessoryType = UITableViewCellAccessoryType.None
-            print("IN FALSE HERE")
         }
         
         return cell
@@ -102,32 +100,24 @@ class TempGroupViewController: UITableViewController {
     
         override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
         {
+            var sectionPeople = self.people!.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[indexPath.section])})
             let cell = tableView.cellForRowAtIndexPath(indexPath)
-    
             if cell!.selected
+            
             {
                 cell!.selected = false
-//                if cell!.accessoryType == UITableViewCellAccessoryType.None
-                if !tempGroup.contains(self.people![indexPath.row]){
-                    print("IN TRUE")
-                    print(tempGroup)
-                    tempGroup += [self.people![indexPath.row]]
-    //                cell!.accessoryType = UITableViewCellAccessoryType.Checkmark
+                if !tempGroup.contains(sectionPeople[indexPath.row]){
+                    tempGroup += [sectionPeople[indexPath.row]]
                 }
                 else{
-                    print("IN FALSE")
-                    print(tempGroup)
-                    let index = tempGroup.indexOf(self.people![indexPath.row])
+                    let index = tempGroup.indexOf(sectionPeople[indexPath.row])
                     tempGroup.removeAtIndex(index!)
-    //                tempGroup += [self.people![indexPath.row]]
-    //                cell!.accessoryType = UITableViewCellAccessoryType.None
+                    
                 }
             }
-            //avoid reloading the entire table due to innefficient algorithm populating the table
             self.tableView.beginUpdates()
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic) //try other animations
+            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             self.tableView.endUpdates()
-//            self.tableView.reloadData()
         }
     
     
@@ -136,8 +126,15 @@ class TempGroupViewController: UITableViewController {
         UIApplication.sharedApplication().openURL(url!)
     }
     
-    
-    
+//    func filterContentForSearchText(searchText: String) {
+//        // Filter the array using the filter method
+//        self.filteredCandies = self.candies.filter({( candy: Candy) -> Bool in
+//            let categoryMatch = (scope == "All") || (candy.category == scope)
+//            let stringMatch = candy.name.rangeOfString(searchText)
+//            return categoryMatch && (stringMatch != nil)
+//        })
+//    }
+//    
     
     
     // MARK: - Actions

@@ -12,13 +12,24 @@ import SwiftAddressBook
 class MessagesViewController: UITableViewController {
     var messagesDict : [[String : [Int]]] = []
     
-    override func viewDidLoad() {
+    @IBAction func deleteAll(sender: AnyObject) {
         //Use to delete all current messages
-//        for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
-//            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
-//        }
+        for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+        }
+        let messagesData = NSUserDefaults.standardUserDefaults()
+        messagesData.synchronize()
+        if (messagesData.objectForKey("SavedMessages"))  != nil{
+            self.messagesDict = messagesData.objectForKey("SavedMessages") as! [[String:[Int]]]
+        }
+        else{
+            self.messagesDict = []
+        }
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.rowHeight = 66
         swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in if b {
             let sources = swiftAddressBook?.allSources
             for source in sources! {
@@ -28,7 +39,6 @@ class MessagesViewController: UITableViewController {
             })
         }
         }
-        print("HEREE")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,29 +50,25 @@ class MessagesViewController: UITableViewController {
         else{
             self.messagesDict = []
         }
-        print(self.messagesDict)
         self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "messageDetailSegue" {
             let messageDetail = segue.destinationViewController as! MessageDetailViewController
             let row = tableView.indexPathForSelectedRow!.row
-            let recipients = self.messagesDict[row].values
+            let recipients = (Array(self.messagesDict[row].values.map({$0}))[0])
             var recipientsObjects : [SwiftAddressBookPerson?] = []
             for recipient in recipients{
-                if swiftAddressBook?.personWithRecordId(Int32(recipient[0])) != nil{
-                    recipientsObjects += [swiftAddressBook!.personWithRecordId(Int32(recipient[0]))]
+                if swiftAddressBook?.personWithRecordId(Int32(recipient)) != nil{
+                    recipientsObjects += [swiftAddressBook!.personWithRecordId(Int32(recipient))]
                 }
             }
-            print("IN SEGUE")
-            print(recipientsObjects)
-            print(self.messagesDict[row].keys.first!)
+
             messageDetail.recipients = recipientsObjects
             messageDetail.message = self.messagesDict[row].keys.first!;
 
@@ -71,8 +77,6 @@ class MessagesViewController: UITableViewController {
     
     
     // MARK: - TableView
-    
-    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
@@ -99,17 +103,19 @@ class MessagesViewController: UITableViewController {
 }
     
     func findRecipientNames(messagesDict : [[String:[Int]]], indexPath : NSIndexPath) -> String{
-        let recipients = self.messagesDict[indexPath.row].values
-        print(recipients);
+        let recipientsArray = (Array(self.messagesDict[indexPath.row].values.map({$0}))[0])
         var recipientString : String = ""
-//        recipientString += (recipients.map({"," + (swiftAddressBook?.personWithRecordId(Int32($0[0]))!.firstName)!}))
         print("RECIPIENTS")
-        print(recipients)
-        for recipient in recipients{
-            let firstName = swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.firstName != nil ?  swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.firstName : ""
-            let lastName = swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.lastName != nil ? swiftAddressBook?.personWithRecordId(Int32(recipient[0]))!.lastName: ""
-            let fullName = firstName! + " " + lastName!
-            recipientString = fullName + ", " + recipientString
+        print(recipientsArray)
+        for index in 0..<recipientsArray.count{
+            print(recipientsArray[index])
+            let firstName = swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.firstName != nil ?  swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.firstName : ""
+            let lastName = swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.lastName != nil ? swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.lastName: ""
+            var fullName = firstName! + " " + lastName!
+            if (index != recipientsArray.count - 1) {
+                fullName += ", "
+            }
+            recipientString = recipientString + fullName
         }
         return recipientString
     }
