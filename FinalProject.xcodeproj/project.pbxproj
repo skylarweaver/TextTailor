@@ -13,6 +13,7 @@
 		940EFC8D1C17F93F00B5A729 /* TempGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940EFC8C1C17F93F00B5A729 /* TempGroupViewController.swift */; };
 		94185FBF1C17FD340070DCD2 /* CustomGroupCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94185FBE1C17FD340070DCD2 /* CustomGroupCellView.swift */; };
 		94202C901C1908E8008F76DA /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94202C8F1C1908E8008F76DA /* DataModel.swift */; };
+		94202C921C194003008F76DA /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94202C911C194003008F76DA /* MessageCellView.swift */; };
 		94AA37461C0FC8DD00D6FAEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37451C0FC8DD00D6FAEB /* AppDelegate.swift */; };
 		94AA37481C0FC8DD00D6FAEB /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37471C0FC8DD00D6FAEB /* MessagesViewController.swift */; };
 		94AA374A1C0FC8DD00D6FAEB /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37491C0FC8DD00D6FAEB /* GroupsViewController.swift */; };
@@ -23,6 +24,8 @@
 		94AA37681C0FD38A00D6FAEB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37671C0FD38A00D6FAEB /* Message.swift */; };
 		94AA376A1C0FD39300D6FAEB /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37691C0FD39300D6FAEB /* Group.swift */; };
 		94AA376C1C12B45A00D6FAEB /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA376B1C12B45A00D6FAEB /* Contact.swift */; };
+		94BE966A1C19F337004D9EB0 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE96691C19F337004D9EB0 /* MessageDetailViewController.swift */; };
+		94BE966E1C1A13F8004D9EB0 /* RecipientCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */; };
 		94CEF9E91C160467003BB6CC /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9E81C160467003BB6CC /* MessageComposer.swift */; };
 		94CEF9EB1C16099B003BB6CC /* MessengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9EA1C16099B003BB6CC /* MessengerViewController.swift */; };
 		9F65455263744E298BA01367 /* Pods_FinalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4782D50656383B9C985ECD80 /* Pods_FinalProject.framework */; };
@@ -41,13 +44,13 @@
 /* Begin PBXFileReference section */
 		4782D50656383B9C985ECD80 /* Pods_FinalProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FinalProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		807272E43E5EDD240C8B2E8B /* Pods-FinalProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FinalProject/Pods-FinalProject.debug.xcconfig"; sourceTree = "<group>"; };
-		9405DBDD1C1381BC0068713F /* FinalProject-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FinalProject-Bridging-Header.h"; sourceTree = "<group>"; };
 		9405DBDE1C150B500068713F /* GroupCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCellView.swift; sourceTree = "<group>"; };
 		9405DBE01C1517420068713F /* PersonCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonCellView.swift; sourceTree = "<group>"; };
 		9405DBE21C1517FA0068713F /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		940EFC8C1C17F93F00B5A729 /* TempGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempGroupViewController.swift; sourceTree = "<group>"; };
 		94185FBE1C17FD340070DCD2 /* CustomGroupCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGroupCellView.swift; sourceTree = "<group>"; };
 		94202C8F1C1908E8008F76DA /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		94202C911C194003008F76DA /* MessageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		94AA37401C0FC8DD00D6FAEB /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94AA37441C0FC8DD00D6FAEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94AA37451C0FC8DD00D6FAEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +65,9 @@
 		94AA37671C0FD38A00D6FAEB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		94AA37691C0FD39300D6FAEB /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		94AA376B1C12B45A00D6FAEB /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		94BE96681C194B01004D9EB0 /* FinalProject-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FinalProject-Bridging-Header.h"; sourceTree = "<group>"; };
+		94BE96691C19F337004D9EB0 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
+		94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientCellView.swift; sourceTree = "<group>"; };
 		94CEF9E81C160467003BB6CC /* MessageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		94CEF9EA1C16099B003BB6CC /* MessengerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessengerViewController.swift; sourceTree = "<group>"; };
 		FC053A9C7A70AB74471BCA3D /* Pods-FinalProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-FinalProject/Pods-FinalProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,9 +125,12 @@
 			children = (
 				94AA37451C0FC8DD00D6FAEB /* AppDelegate.swift */,
 				94AA37471C0FC8DD00D6FAEB /* MessagesViewController.swift */,
+				94BE96691C19F337004D9EB0 /* MessageDetailViewController.swift */,
+				94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */,
+				94BE96681C194B01004D9EB0 /* FinalProject-Bridging-Header.h */,
 				94AA37491C0FC8DD00D6FAEB /* GroupsViewController.swift */,
 				9405DBDE1C150B500068713F /* GroupCellView.swift */,
-				9405DBDD1C1381BC0068713F /* FinalProject-Bridging-Header.h */,
+				94202C911C194003008F76DA /* MessageCellView.swift */,
 				94AA37671C0FD38A00D6FAEB /* Message.swift */,
 				94202C8F1C1908E8008F76DA /* DataModel.swift */,
 				94AA37691C0FD39300D6FAEB /* Group.swift */,
@@ -336,6 +345,9 @@
 				94AA37461C0FC8DD00D6FAEB /* AppDelegate.swift in Sources */,
 				940EFC8D1C17F93F00B5A729 /* TempGroupViewController.swift in Sources */,
 				94202C901C1908E8008F76DA /* DataModel.swift in Sources */,
+				94BE966E1C1A13F8004D9EB0 /* RecipientCellView.swift in Sources */,
+				94202C921C194003008F76DA /* MessageCellView.swift in Sources */,
+				94BE966A1C19F337004D9EB0 /* MessageDetailViewController.swift in Sources */,
 				94185FBF1C17FD340070DCD2 /* CustomGroupCellView.swift in Sources */,
 				9405DBE31C1517FA0068713F /* PeopleViewController.swift in Sources */,
 				94AA376A1C0FD39300D6FAEB /* Group.swift in Sources */,
@@ -389,7 +401,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -408,7 +419,6 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -435,7 +445,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -462,6 +471,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

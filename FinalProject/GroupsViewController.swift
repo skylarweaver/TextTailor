@@ -7,12 +7,10 @@
 //
 
 import UIKit
-import AddressBook
 import SwiftAddressBook
 
 class GroupsViewController: UITableViewController {
 
-    let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
     var groups : [SwiftAddressBookGroup]? = []
     
     override func viewDidLoad() {
@@ -23,14 +21,18 @@ class GroupsViewController: UITableViewController {
                 for source in sources! {
                     let newGroups = swiftAddressBook!.allGroupsInSource(source)!
                     self.groups = self.groups! + newGroups
+                    print("ACCESS ALLOWED")
+                    print(self.groups)
+                    print(newGroups)
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
                 })
             }
         }
-//        print("Groups 1: ", terminator: "");
-//        print(self.groups, terminator: "");
+        print("GROUPS")
+        print(self.groups!.count);
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,16 +57,25 @@ class GroupsViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups == nil ? 1 : groups!.count+0
+        return self.groups == nil ? 1 : self.groups!.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupCellView
-        if groups != nil{
-            // Configure the cell...
-            cell.groupLabel.text = groups![indexPath.row].name
-            cell.groupSizeLabel.text = String(groups![indexPath.row].allMembers!.count);
+        if self.groups != nil{
+            if self.groups!.count > 0{
+                // Configure the cell...
+                print("BEFORE ERROR")
+                print(self.groups)
+                            cell.groupLabel.text = groups![indexPath.row].name
+                if self.groups![indexPath.row].allMembers != nil{
+                    cell.groupSizeLabel.text = String(self.groups![indexPath.row].allMembers!.count);
+                }
+                else{
+                    cell.groupSizeLabel.text = "Empty Group"
+                    cell.contactsLabel.text = ""
+                }
+            }
         }
         else {
             cell.groupLabel.text = "No groups created";
@@ -73,10 +84,10 @@ class GroupsViewController: UITableViewController {
     }
     
 
-    func openSettings() {
-        let url = NSURL(string: UIApplicationOpenSettingsURLString)
-        UIApplication.sharedApplication().openURL(url!)
-    }
+//    func openSettings() {
+//        let url = NSURL(string: UIApplicationOpenSettingsURLString)
+//        UIApplication.sharedApplication().openURL(url!)
+//    }
     
 
     

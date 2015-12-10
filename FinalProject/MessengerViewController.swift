@@ -17,7 +17,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
     var persons : [SwiftAddressBookPerson] = []
     var tempGroup : [SwiftAddressBookPerson]?
     var messagesDictArray: [[String:[Int]]] = []
-//    var recipientsDictArray: [[Int:SwiftAddressBookPerson]] = []
 
     
     @IBOutlet var messageInput: UITextView!
@@ -56,10 +55,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         }
         sendNextMessage()
     }
-    
-//    func returnPersons() -> [SwiftAddressBookPerson]{
-//        return persons
-//    }
     
     func sendNextMessage(){
         if self.persons.count != 0{
@@ -148,6 +143,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         var recipientRecordIDs :[Int] = []
         message.recipients.map({recipientRecordIDs += [$0.recordID]})
         self.messagesDictArray += [[message.messageText : recipientRecordIDs]]
+        print("In MessengerViewController")
         print(self.messagesDictArray)
         defaults.setObject(self.messagesDictArray, forKey: "SavedMessages")
 //        let defaultsnew = NSUserDefaults.standardUserDefaults()
