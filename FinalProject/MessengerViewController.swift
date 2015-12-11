@@ -13,7 +13,7 @@ import MessageUI.MFMessageComposeViewController
 
 class MessengerViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate {
     var group  : SwiftAddressBookGroup?
-    var placeHolderText = "Placeholder Text..."
+    var placeHolderText = "Placeholder Text...Use .fn for first name & .ln for last name"
     var persons : [SwiftAddressBookPerson] = []
     var tempGroup : [SwiftAddressBookPerson]?
     var messagesDictArray: [[String:[Int]]] = []
