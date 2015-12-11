@@ -30,7 +30,7 @@ class TempGroupViewController: UITableViewController, UISearchResultsUpdating, U
                 for source in srcs
                 {
                     self.people = swiftAddressBook?.allPeopleInSourceWithSortOrdering(source, ordering: SwiftAddressBookOrdering.firstName)!.filter({ p in p.phoneNumbers != nil}).filter({ pe in pe.firstName != nil})
-//                    self.people = self.people!.filter({ person in person.phoneNumbers!.filter({ $0.id == 0 })[0].value != nil})
+//                    print(self.people)
                 }
             }
             dispatch_async(dispatch_get_main_queue(), {
