@@ -14,26 +14,37 @@ class MessagesViewController: UITableViewController {
     
     @IBAction func deleteAll(sender: AnyObject) {
         //Use to delete all current messages
-        for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
-        }
-        let messagesData = NSUserDefaults.standardUserDefaults()
-        messagesData.synchronize()
-        if (messagesData.objectForKey("SavedMessages"))  != nil{
-            self.messagesDict = messagesData.objectForKey("SavedMessages") as! [[String:[Int]]]
-        }
-        else{
-            self.messagesDict = []
-        }
-        self.tableView.reloadData()
+        let alert = UIAlertController(title: "Delete All Messages", message: "Do you want to delete all messages?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .Destructive, handler: { action in
+            switch action.style{
+            case .Default:
+                print("default")
+                
+            case .Cancel:
+                print("cancel")
+                
+            case .Destructive:
+                for key in NSUserDefaults.standardUserDefaults().dictionaryRepresentation().keys {
+                    NSUserDefaults.standardUserDefaults().removeObjectForKey(key)
+                }
+                let messagesData = NSUserDefaults.standardUserDefaults()
+                messagesData.synchronize()
+                if (messagesData.objectForKey("SavedMessages"))  != nil{
+                    self.messagesDict = messagesData.objectForKey("SavedMessages") as! [[String:[Int]]]
+                }
+                else{
+                    self.messagesDict = []
+                }
+                self.tableView.reloadData()
+            }
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in if b {
-            let sources = swiftAddressBook?.allSources
-            for source in sources! {
-            }
             dispatch_async(dispatch_get_main_queue(), {
                 self.tableView.reloadData()
             })
@@ -105,10 +116,7 @@ class MessagesViewController: UITableViewController {
     func findRecipientNames(messagesDict : [[String:[Int]]], indexPath : NSIndexPath) -> String{
         let recipientsArray = (Array(self.messagesDict[indexPath.row].values.map({$0}))[0])
         var recipientString : String = ""
-        print("RECIPIENTS")
-        print(recipientsArray)
         for index in 0..<recipientsArray.count{
-            print(recipientsArray[index])
             let firstName = swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.firstName != nil ?  swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.firstName : ""
             let lastName = swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.lastName != nil ? swiftAddressBook?.personWithRecordId(Int32(recipientsArray[index]))!.lastName: ""
             var fullName = firstName! + " " + lastName!

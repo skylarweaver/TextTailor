@@ -27,6 +27,7 @@
 		94BE966E1C1A13F8004D9EB0 /* RecipientCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */; };
 		94CEF9E91C160467003BB6CC /* MessageComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9E81C160467003BB6CC /* MessageComposer.swift */; };
 		94CEF9EB1C16099B003BB6CC /* MessengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CEF9EA1C16099B003BB6CC /* MessengerViewController.swift */; };
+		94DCF8DE1C1A7D7300BCD44A /* RecipientCellViewMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DCF8DD1C1A7D7300BCD44A /* RecipientCellViewMessages.swift */; };
 		9F65455263744E298BA01367 /* Pods_FinalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4782D50656383B9C985ECD80 /* Pods_FinalProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientCellView.swift; sourceTree = "<group>"; };
 		94CEF9E81C160467003BB6CC /* MessageComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageComposer.swift; sourceTree = "<group>"; };
 		94CEF9EA1C16099B003BB6CC /* MessengerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessengerViewController.swift; sourceTree = "<group>"; };
+		94DCF8DD1C1A7D7300BCD44A /* RecipientCellViewMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientCellViewMessages.swift; sourceTree = "<group>"; };
 		FC053A9C7A70AB74471BCA3D /* Pods-FinalProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinalProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-FinalProject/Pods-FinalProject.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				94AA37471C0FC8DD00D6FAEB /* MessagesViewController.swift */,
 				94BE96691C19F337004D9EB0 /* MessageDetailViewController.swift */,
 				94BE966D1C1A13F8004D9EB0 /* RecipientCellView.swift */,
+				94DCF8DD1C1A7D7300BCD44A /* RecipientCellViewMessages.swift */,
 				94BE96681C194B01004D9EB0 /* FinalProject-Bridging-Header.h */,
 				94AA37491C0FC8DD00D6FAEB /* GroupsViewController.swift */,
 				9405DBDE1C150B500068713F /* GroupCellView.swift */,
@@ -350,6 +353,7 @@
 				94AA376C1C12B45A00D6FAEB /* Contact.swift in Sources */,
 				94AA37481C0FC8DD00D6FAEB /* MessagesViewController.swift in Sources */,
 				94CEF9E91C160467003BB6CC /* MessageComposer.swift in Sources */,
+				94DCF8DE1C1A7D7300BCD44A /* RecipientCellViewMessages.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

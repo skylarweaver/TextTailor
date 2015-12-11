@@ -11,7 +11,7 @@ import SwiftAddressBook
 import MessageUI.MFMessageComposeViewController
 
 
-class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageComposeViewControllerDelegate {
+class MessengerViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, MFMessageComposeViewControllerDelegate {
     var group  : SwiftAddressBookGroup?
     var placeHolderText = "Placeholder Text..."
     var persons : [SwiftAddressBookPerson] = []
@@ -21,6 +21,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
 
     
     @IBOutlet var messageInput: UITextView!
+    @IBOutlet var tableView: UITableView!
 
     // Create a MessageComposer
     let messageComposer = MessageComposer()
@@ -28,6 +29,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
         messageInput.delegate = self
         if self.tempGroup != nil{
             self.title = "Message Custom Group"
@@ -48,7 +50,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         textView.contentInset.top = 0.0 //topCorrect
     }
     
-    @IBAction func sendTextMessageButtonTapped(sender: UIButton) {
+    @IBAction func SendButton2(sender: AnyObject) {
         if self.tempGroup != nil{
             self.persons = self.tempGroup!
         }
@@ -57,6 +59,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         }
         sendNextMessage()
     }
+
     
     func sendNextMessage(){
         if self.persons.count != 0{
@@ -81,7 +84,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
                 errorAlert.show()
             }
         }else{
-            var timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+            let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
             var recipients : [SwiftAddressBookPerson] = []
             if self.tempGroup != nil{
                 recipients = self.tempGroup!
@@ -91,10 +94,13 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
             }
             let message = Message(messageText: messageInput.text, recipients: recipients, timestamp: timestamp )
             saveData(message)
+            
+            tabBarController?.selectedIndex = 1
+
+            
             let groupsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("groupsViewController") as? GroupsViewController
-            self.navigationController?.showViewController(groupsViewController!, sender: true)
-            let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MessagesViewController") as! MessagesViewController
-            self.navigationController?.pushViewController(secondViewController, animated: true)
+            self.navigationController?.pushViewController(groupsViewController!, animated: true)
+                        
             tabBarController?.selectedIndex = 0
 
             return
@@ -113,19 +119,19 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
 
     
     func formatText(textInput: String, person: SwiftAddressBookPerson) -> String{
-        let result1 = textInput.stringByReplacingOccurrencesOfString("%nickname", withString: (person.nickname != nil ? person.nickname!.capitalizedString : (person.firstName != nil ? person.lastName!.capitalizedString : "")));
+        let result1 = textInput.stringByReplacingOccurrencesOfString("%nickname", withString: (person.nickname != nil ? person.nickname!.capitalizedString : (person.firstName != nil ? person.firstName!.capitalizedString : "")));
         let result2 = result1.stringByReplacingOccurrencesOfString("%lastname", withString: (person.lastName  != nil ? person.lastName!.capitalizedString : ""));
         let result3 = result2.stringByReplacingOccurrencesOfString("%firstname", withString: (person.firstName != nil ? person.firstName!.capitalizedString : ""));
         let result4 = result3.stringByReplacingOccurrencesOfString(".firstname", withString: (person.firstName != nil ? person.firstName!.capitalizedString : ""));
-        let result5 = result4.stringByReplacingOccurrencesOfString(".lastname", withString: (person.firstName != nil ? person.lastName!.capitalizedString : ""));
+        let result5 = result4.stringByReplacingOccurrencesOfString(".lastname", withString: (person.lastName != nil ? person.lastName!.capitalizedString : ""));
         let result6 = result5.stringByReplacingOccurrencesOfString(".fn", withString: (person.firstName != nil ? person.firstName!.capitalizedString : ""));
-        let result7 = result6.stringByReplacingOccurrencesOfString(".ln", withString: (person.firstName != nil ? person.lastName!.capitalizedString : ""));
+        let result7 = result6.stringByReplacingOccurrencesOfString(".ln", withString: (person.lastName != nil ? person.lastName!.capitalizedString : ""));
         let finalResult = result7.stringByReplacingOccurrencesOfString("%fullname", withString: (person.compositeName != nil ? person.compositeName!.capitalizedString : ""));
         return finalResult
     }
     
     
-    // MARK: - DataManager Stuff
+    // MARK: - DataSaving Stuff
     
     func saveData(message : Message) {
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -143,8 +149,70 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
     }
     
     
+    // MARK: - tableView Stuff
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.tempGroup != nil{
+            print("NUM SECTIONS")
+            return self.tempGroup!.count == 0 ? 1 : self.tempGroup!.count
+        }
+        else{
+            return self.group!.allMembers!.count == 0 ? 1 : self.group!.allMembers!.count
+        }
+
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        return
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("recipientCellMessages", forIndexPath: indexPath) as! RecipientCellViewMessages
+        
+        if self.tempGroup != nil{
+            return populateCell(cell, recipients: self.tempGroup!, indexPath: indexPath)
+        }
+        else{
+            return populateCell(cell, recipients: self.group!.allMembers!, indexPath: indexPath)
+        }
+    }
+    
+    func populateCell(cell: RecipientCellViewMessages, recipients: [SwiftAddressBookPerson], indexPath: NSIndexPath) -> UITableViewCell{
+        if recipients.count > 0{
+            let firstName = recipients[indexPath.row].firstName != nil ?  recipients[indexPath.row].firstName : ""
+            let lastName = recipients[indexPath.row].lastName != nil ? recipients[indexPath.row].lastName : ""
+            let fullName = firstName! + " " + lastName!
+            cell.recipient.text = fullName
+            if recipients[indexPath.row].phoneNumbers != nil{
+                let phoneNumber = recipients[indexPath.row].phoneNumbers!.filter { $0.id == 0 }[0].value
+                cell.phoneNumber.text = phoneNumber
+            }
+            else{
+                cell.phoneNumber.text = "No Mobile Number"
+            }
+        }
+        else{
+            
+            cell.recipient.text = "NO NAME"
+            cell.phoneNumber.text = "NO PHONE"
+        }
+        return cell
+    }
+    
     
     // MARK: - TextViewStuff
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+        messageInput.resignFirstResponder()
+        return false
+    }
+    
+    
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         
         self.messageInput.textColor = UIColor.blackColor()

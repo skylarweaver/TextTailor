@@ -10,7 +10,6 @@ import UIKit
 import SwiftAddressBook
 
 class MessageDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-//    var messagesDict : [[String : [Int]]] = []
     var recipients : [SwiftAddressBookPerson?] = []
     var message : String = ""
     
