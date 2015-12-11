@@ -24,8 +24,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
 
     // Create a MessageComposer
     let messageComposer = MessageComposer()
-    // Create a Datamodel
-    let dataModel = DataModel()
 
     
     override func viewDidLoad() {
@@ -98,7 +96,6 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
             let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MessagesViewController") as! MessagesViewController
             self.navigationController?.pushViewController(secondViewController, animated: true)
             tabBarController?.selectedIndex = 0
-//            MessagesViewController.reload
 
             return
         }
@@ -125,17 +122,12 @@ class MessengerViewController: UIViewController, UITextViewDelegate, MFMessageCo
         let result7 = result6.stringByReplacingOccurrencesOfString(".ln", withString: (person.firstName != nil ? person.lastName!.capitalizedString : ""));
         let finalResult = result7.stringByReplacingOccurrencesOfString("%fullname", withString: (person.compositeName != nil ? person.compositeName!.capitalizedString : ""));
         return finalResult
-//        return "STRING MESSAGE"
     }
     
     
     // MARK: - DataManager Stuff
     
     func saveData(message : Message) {
-//        let navigationController = window!.rootViewController as! UINavigationController
-//        let controller = navigationController.viewControllers[0] as! ContactsController
-//        dataModel.message = message
-//        dataModel.saveMessages()
         let defaults = NSUserDefaults.standardUserDefaults()
         if defaults.objectForKey("SavedMessages") != nil{
             self.messagesDictArray = defaults.objectForKey("SavedMessages") as! [[String:[Int]]]

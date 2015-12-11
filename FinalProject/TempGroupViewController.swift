@@ -194,11 +194,8 @@ class TempGroupViewController: UITableViewController, UISearchResultsUpdating, U
     func updateSearchResultsForSearchController(searchController: UISearchController)
     {
         self.filteredContacts.removeAll(keepCapacity: false)
-//        if (searchController.searchBar.text! == ""){
-//            self.filteredContacts = self.people!
-//        }else{
+
             self.filteredContacts = self.people!.filter({$0.firstName?.lowercaseString.rangeOfString(searchController.searchBar.text!.lowercaseString) != nil})
-//        }
         self.tableView.reloadData()
     }
     

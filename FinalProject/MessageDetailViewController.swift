@@ -20,22 +20,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.tableView.delegate = self
-//        self.tableView.dataSource = self
-//        tableView.rowHeight = 44
-//        self.tableView.registerClass(RecipientCellView.self, forCellReuseIdentifier: "recipientCell")
         messageField.text = self.message
-
-        
-//        swiftAddressBook?.requestAccessWithCompletion { (b :Bool, _ :CFError?) -> Void in if b {
-//            let sources = swiftAddressBook?.allSources
-//            for source in sources! {
-//            }
-//            dispatch_async(dispatch_get_main_queue(), {
-////                self.tableView.reloadData()
-//            })
-//            }
-//        }
     }
     
     override func didReceiveMemoryWarning() {

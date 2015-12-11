@@ -12,7 +12,6 @@
 		9405DBE31C1517FA0068713F /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9405DBE21C1517FA0068713F /* PeopleViewController.swift */; };
 		940EFC8D1C17F93F00B5A729 /* TempGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940EFC8C1C17F93F00B5A729 /* TempGroupViewController.swift */; };
 		94185FBF1C17FD340070DCD2 /* CustomGroupCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94185FBE1C17FD340070DCD2 /* CustomGroupCellView.swift */; };
-		94202C901C1908E8008F76DA /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94202C8F1C1908E8008F76DA /* DataModel.swift */; };
 		94202C921C194003008F76DA /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94202C911C194003008F76DA /* MessageCellView.swift */; };
 		94AA37461C0FC8DD00D6FAEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37451C0FC8DD00D6FAEB /* AppDelegate.swift */; };
 		94AA37481C0FC8DD00D6FAEB /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA37471C0FC8DD00D6FAEB /* MessagesViewController.swift */; };
@@ -49,7 +48,6 @@
 		9405DBE21C1517FA0068713F /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		940EFC8C1C17F93F00B5A729 /* TempGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempGroupViewController.swift; sourceTree = "<group>"; };
 		94185FBE1C17FD340070DCD2 /* CustomGroupCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGroupCellView.swift; sourceTree = "<group>"; };
-		94202C8F1C1908E8008F76DA /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		94202C911C194003008F76DA /* MessageCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		94AA37401C0FC8DD00D6FAEB /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94AA37441C0FC8DD00D6FAEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 				9405DBDE1C150B500068713F /* GroupCellView.swift */,
 				94202C911C194003008F76DA /* MessageCellView.swift */,
 				94AA37671C0FD38A00D6FAEB /* Message.swift */,
-				94202C8F1C1908E8008F76DA /* DataModel.swift */,
 				94AA37691C0FD39300D6FAEB /* Group.swift */,
 				94AA376B1C12B45A00D6FAEB /* Contact.swift */,
 				94AA374B1C0FC8DD00D6FAEB /* Main.storyboard */,
@@ -344,7 +341,6 @@
 				94AA37681C0FD38A00D6FAEB /* Message.swift in Sources */,
 				94AA37461C0FC8DD00D6FAEB /* AppDelegate.swift in Sources */,
 				940EFC8D1C17F93F00B5A729 /* TempGroupViewController.swift in Sources */,
-				94202C901C1908E8008F76DA /* DataModel.swift in Sources */,
 				94BE966E1C1A13F8004D9EB0 /* RecipientCellView.swift in Sources */,
 				94202C921C194003008F76DA /* MessageCellView.swift in Sources */,
 				94BE966A1C19F337004D9EB0 /* MessageDetailViewController.swift in Sources */,

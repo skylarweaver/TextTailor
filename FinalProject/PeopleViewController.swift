@@ -80,13 +80,6 @@ class PeopleViewController: UITableViewController {
         let url = NSURL(string: UIApplicationOpenSettingsURLString)
         UIApplication.sharedApplication().openURL(url!)
     }
-    
-
-    
-    
-    
-    // MARK: - Actions
-    
 
 }
 

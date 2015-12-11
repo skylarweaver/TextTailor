@@ -15,15 +15,6 @@ class Group {
     var groupName: String!
     var groupSize: Int!
     var people : [SwiftAddressBookPerson]? = []
-
-
-//    var lastName: String!
-//    var phoneNumber: String!
-//    var imageData: NSData!
-    
-//    var description : String {
-//        return firstName + " " + lastName
-//    }
     
     init(groupName: String) {
         self.groupName = groupName
