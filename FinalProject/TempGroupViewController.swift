@@ -9,12 +9,14 @@
 import UIKit
 import SwiftAddressBook
 
-class TempGroupViewController: UITableViewController, UISearchDisplayDelegate {
+class TempGroupViewController: UITableViewController, UISearchResultsUpdating, UISearchDisplayDelegate {
     
     var people : [SwiftAddressBookPerson]? = []
     var tempGroup :[SwiftAddressBookPerson] = []
     let alphabetSections = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
     var filteredContacts : [SwiftAddressBookPerson] = []
+    var resultSearchController = UISearchController()
+
 
     
     override
@@ -37,6 +39,17 @@ class TempGroupViewController: UITableViewController, UISearchDisplayDelegate {
             }
         }
 
+        self.resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.dimsBackgroundDuringPresentation = false
+            controller.searchBar.sizeToFit()
+            
+            self.tableView.tableHeaderView = controller.searchBar
+            
+            return controller
+        })()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,62 +70,114 @@ class TempGroupViewController: UITableViewController, UISearchDisplayDelegate {
     
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return alphabetSections.count;
+        if (self.resultSearchController.active) {
+            return 1;
+        }else{
+            return alphabetSections.count;
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.people?.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[section])}).count)!
+        if (self.resultSearchController.active) {
+            return self.filteredContacts.count
+        }
+        else {
+            return (self.people?.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[section])}).count)!
+        }
+        
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return alphabetSections[section].uppercaseString
+        if (self.resultSearchController.active) {
+            return nil;
+        }else{
+            return alphabetSections[section].uppercaseString
+        }
     }
     
     override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
-        return self.alphabetSections.map({$0.uppercaseString})
+        if (self.resultSearchController.active) {
+            return nil;
+        }else{
+            return self.alphabetSections.map({$0.uppercaseString})
+        }
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var sectionPeople = self.people!.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[indexPath.section])})
         let cell = tableView.dequeueReusableCellWithIdentifier("customGroupCellView", forIndexPath: indexPath) as! CustomGroupCellView
-        if self.people != nil{
-            // Configure the cell...
-            let firstName = sectionPeople[indexPath.row].firstName != nil ?  sectionPeople[indexPath.row].firstName : ""
-            let lastName = sectionPeople[indexPath.row].lastName != nil ? sectionPeople[indexPath.row].lastName : ""
-            let fullName = firstName! + " " + lastName!
-            cell.personName.text = fullName
+        
+        if (self.resultSearchController.active) {
+            if self.filteredContacts.count != 0{
+                // Configure the cell...
+                let firstName = filteredContacts[indexPath.row].firstName != nil ?  filteredContacts[indexPath.row].firstName : ""
+                let lastName = filteredContacts[indexPath.row].lastName != nil ? filteredContacts[indexPath.row].lastName : ""
+                let fullName = firstName! + " " + lastName!
+                cell.personName.text = fullName
+            }
+            else {
+                cell.personName.text = "You have no friends :(";
+            }
+            
+            cell.selected = false
+            if tempGroup.contains(filteredContacts[indexPath.row]){
+                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            }
+            else{
+                cell.accessoryType = UITableViewCellAccessoryType.None
+            }
+            return cell
         }
         else {
-            cell.personName.text = "You have no friends :(";
+            if self.people != nil{
+                // Configure the cell...
+                let firstName = sectionPeople[indexPath.row].firstName != nil ?  sectionPeople[indexPath.row].firstName : ""
+                let lastName = sectionPeople[indexPath.row].lastName != nil ? sectionPeople[indexPath.row].lastName : ""
+                let fullName = firstName! + " " + lastName!
+                cell.personName.text = fullName
+            }
+            else {
+                cell.personName.text = "You have no friends :(";
+            }
+            cell.selected = false
+            if tempGroup.contains(sectionPeople[indexPath.row]){
+                cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            }
+            else{
+                cell.accessoryType = UITableViewCellAccessoryType.None
+            }
+            return cell
         }
-        
-        cell.selected = false
-        if tempGroup.contains(sectionPeople[indexPath.row]){
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-        }
-        else{
-            cell.accessoryType = UITableViewCellAccessoryType.None
-        }
-        
-        return cell
     }
     
-        override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-        {
+        override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+            print(indexPath.row)
+            print(indexPath.section)
             var sectionPeople = self.people!.filter({ person in person.firstName!.lowercaseString.characters.first == Character(alphabetSections[indexPath.section])})
             let cell = tableView.cellForRowAtIndexPath(indexPath)
-            if cell!.selected
-            
-            {
-                cell!.selected = false
-                if !tempGroup.contains(sectionPeople[indexPath.row]){
-                    tempGroup += [sectionPeople[indexPath.row]]
+            if cell!.selected{
+                if (self.resultSearchController.active) {
+                    cell!.selected = false
+                    if !tempGroup.contains(filteredContacts[indexPath.row]){
+                        tempGroup += [filteredContacts[indexPath.row]]
+                    }
+                    else{
+                        let index = tempGroup.indexOf(filteredContacts[indexPath.row])
+                        tempGroup.removeAtIndex(index!)
+                        
+                    }
                 }
                 else{
-                    let index = tempGroup.indexOf(sectionPeople[indexPath.row])
-                    tempGroup.removeAtIndex(index!)
-                    
+                    cell!.selected = false
+                    if !tempGroup.contains(sectionPeople[indexPath.row]){
+                        tempGroup += [sectionPeople[indexPath.row]]
+                    }
+                    else{
+                        let index = tempGroup.indexOf(sectionPeople[indexPath.row])
+                        tempGroup.removeAtIndex(index!)
+                        
+                }
                 }
             }
             self.tableView.beginUpdates()
@@ -126,15 +191,16 @@ class TempGroupViewController: UITableViewController, UISearchDisplayDelegate {
         UIApplication.sharedApplication().openURL(url!)
     }
     
-//    func filterContentForSearchText(searchText: String) {
-//        // Filter the array using the filter method
-//        self.filteredCandies = self.candies.filter({( candy: Candy) -> Bool in
-//            let categoryMatch = (scope == "All") || (candy.category == scope)
-//            let stringMatch = candy.name.rangeOfString(searchText)
-//            return categoryMatch && (stringMatch != nil)
-//        })
-//    }
-//    
+    func updateSearchResultsForSearchController(searchController: UISearchController)
+    {
+        self.filteredContacts.removeAll(keepCapacity: false)
+//        if (searchController.searchBar.text! == ""){
+//            self.filteredContacts = self.people!
+//        }else{
+            self.filteredContacts = self.people!.filter({$0.firstName?.lowercaseString.rangeOfString(searchController.searchBar.text!.lowercaseString) != nil})
+//        }
+        self.tableView.reloadData()
+    }
     
     
     // MARK: - Actions
