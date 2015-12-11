@@ -100,7 +100,7 @@ class MessengerViewController: UIViewController, UITextViewDelegate, UITableView
             
             let groupsViewController = self.storyboard?.instantiateViewControllerWithIdentifier("groupsViewController") as? GroupsViewController
             self.navigationController?.pushViewController(groupsViewController!, animated: true)
-                        
+            
             tabBarController?.selectedIndex = 0
 
             return
